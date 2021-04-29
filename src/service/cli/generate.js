@@ -28,7 +28,7 @@ const getDate = () => {
   return new Date(publicationTime).toLocaleString();
 };
 
-const getRandomTexts = (texts, limit) => {
+const getRandomArrayItems = (texts, limit) => {
   const textCount = getRandomInt(1, limit || texts.length);
   return shuffle(texts).slice(0, textCount);
 };
@@ -37,9 +37,9 @@ const generatePublications = (count) => {
   return Array(count).fill({}).map(() => ({
     title: TITLES[getRandomInt(0, TITLES.length - 1)],
     createdDate: getDate(),
-    announce: getRandomTexts(TEXTS, 5).join(` `),
-    fullText: getRandomTexts(TEXTS).join(` `),
-    category: getRandomTexts(CATEGORIES),
+    announce: getRandomArrayItems(TEXTS, 5).join(` `),
+    fullText: getRandomArrayItems(TEXTS).join(` `),
+    category: getRandomArrayItems(CATEGORIES),
   }));
 };
 
