@@ -1,5 +1,7 @@
 'use strict';
 
+const chalk = require(`chalk`);
+
 const HELP = `
 Доступные команды:
 --help              выводит справку
@@ -10,6 +12,6 @@ const HELP = `
 module.exports = {
   name: `--help`,
   run() {
-    console.info(HELP);
+    console.info(chalk.grey(HELP));
   },
 };

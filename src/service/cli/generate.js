@@ -17,6 +17,7 @@ const {
 } = require(`../utils`);
 
 const fs = require(`fs`);
+const chalk = require(`chalk`);
 
 
 const getDate = () => {
@@ -49,17 +50,17 @@ module.exports = {
     const publicationCount = Number(count) || DEFAULT_COUNT;
 
     if (publicationCount > MAX_PUBLICATION_COUNT) {
-      console.error(`Не больше 1000 публикаций`);
+      console.error(chalk.red(`Не больше 1000 публикаций`));
       process.exit(ExitCode.FAIL);
     }
 
     const publications = generatePublications(publicationCount);
     fs.writeFile(FILE_NAME, JSON.stringify(publications), (error) => {
       if (error) {
-        console.error(`Can't write data to file. Error:`, error);
+        console.error(chalk.red(`Can't write data to file. Error:`), error);
         process.exit(ExitCode.FAIL);
       }
-      console.info(`Operation succeded. File has been created and contains ${publications.length} items.`);
+      console.info(chalk.green(`Operation succeded. File has been created and contains ${publications.length} items.`));
     });
   },
 };
