@@ -16,7 +16,7 @@ const {
   shuffle
 } = require(`../utils`);
 
-const fs = require(`fs`);
+const fs = require(`fs`).promises;
 const chalk = require(`chalk`);
 
 
@@ -46,7 +46,7 @@ const generatePublications = (count) => {
 
 module.exports = {
   name: `--generate`,
-  run(count) {
+  async run(count) {
     const publicationCount = Number(count) || DEFAULT_COUNT;
 
     if (publicationCount > MAX_PUBLICATION_COUNT) {
@@ -55,12 +55,12 @@ module.exports = {
     }
 
     const publications = generatePublications(publicationCount);
-    fs.writeFile(FILE_NAME, JSON.stringify(publications), (error) => {
-      if (error) {
-        console.error(chalk.red(`Can't write data to file. Error:`), error);
-        process.exit(ExitCode.FAIL);
-      }
+    try {
+      await fs.writeFile(FILE_NAME, JSON.stringify(publications));
       console.info(chalk.green(`Operation succeded. File has been created and contains ${publications.length} items.`));
-    });
+    } catch (error) {
+      console.error(chalk.red(`Can't write data to file. Error:`), error);
+      process.exit(ExitCode.FAIL);
+    }
   },
 };
