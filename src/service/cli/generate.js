@@ -1,13 +1,10 @@
 'use strict';
 
 const {
-  CATEGORIES,
   DEFAULT_COUNT,
   FILE_NAME,
   FULL_MONTH_COUNT,
   MAX_PUBLICATION_COUNT,
-  TEXTS,
-  TITLES,
   ExitCode,
 } = require(`../constants`);
 
@@ -19,6 +16,19 @@ const {
 const fs = require(`fs`).promises;
 const chalk = require(`chalk`);
 
+const CATEGORIES_FILE_NAME = `./data/categories.txt`;
+const SENTENCES_FILE_NAME = `./data/sentences.txt`;
+const TITLES_FILE_NAME = `./data/titles.txt`;
+
+const readFile = async (filePath) => {
+  try {
+    const content = await fs.readFile(filePath, `utf8`);
+    return content.split(`\n`).filter((row) => row.length);
+  } catch (error) {
+    console.error(chalk.red(`Cannot read the file ${filePath}`), error);
+    return [];
+  }
+};
 
 const getDate = () => {
   const currentMonthNum = new Date().getMonth();
@@ -34,15 +44,16 @@ const getRandomArrayItems = (texts, limit) => {
   return shuffle(texts).slice(0, textCount);
 };
 
-const generatePublications = (count) => {
+const generatePublications = (categories, sentences, titles, count) => {
   return Array(count).fill({}).map(() => ({
-    title: TITLES[getRandomInt(0, TITLES.length - 1)],
+    title: titles[getRandomInt(0, titles.length - 1)],
     createdDate: getDate(),
-    announce: getRandomArrayItems(TEXTS, 5).join(` `),
-    fullText: getRandomArrayItems(TEXTS).join(` `),
-    category: getRandomArrayItems(CATEGORIES),
+    announce: getRandomArrayItems(sentences, 5).join(` `),
+    fullText: getRandomArrayItems(sentences).join(` `),
+    category: getRandomArrayItems(categories),
   }));
 };
+
 
 module.exports = {
   name: `--generate`,
@@ -54,7 +65,11 @@ module.exports = {
       process.exit(ExitCode.FAIL);
     }
 
-    const publications = generatePublications(publicationCount);
+    const categories = await readFile(CATEGORIES_FILE_NAME);
+    const sentences = await readFile(SENTENCES_FILE_NAME);
+    const titles = await readFile(TITLES_FILE_NAME);
+
+    const publications = generatePublications(categories, sentences, titles, publicationCount);
     try {
       await fs.writeFile(FILE_NAME, JSON.stringify(publications));
       console.info(chalk.green(`Operation succeded. File has been created and contains ${publications.length} items.`));
