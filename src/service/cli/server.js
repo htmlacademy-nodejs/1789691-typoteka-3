@@ -18,12 +18,12 @@ const sendResponse = (res, statusCode, message) => {
     'Content-Type': `text/html; charset=UTF8`
   });
   res.end(template);
-}
+};
 
 const onClientConnect = async (req, res) => {
   const notFoundMessage = `Not found`;
   switch (req.url) {
-    case `/`  :
+    case `/`:
       try {
         const content = await fs.readFile(FILE_NAME);
         const mocks = JSON.parse(content);
