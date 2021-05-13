@@ -13,11 +13,12 @@ const port = 8080;
 const app = express();
 
 app.use(`/`, mainRoutes);
-app.use(`/my`, myRoutes);
-app.use(`/register`, registerRoutes);
-app.use(`/login`, loginRoutes);
 app.use(`/articles`, articlesRoutes);
 app.use(`/categories`, categoriesRoutes);
+app.use(`/login`, loginRoutes);
+app.use(`/my`, myRoutes);
+app.use(`/register`, registerRoutes);
+app.use(`/search`, searchRoutes);
 
 
 app.listen(port, () => {
