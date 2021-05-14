@@ -6,7 +6,7 @@ const {
   FULL_MONTH_COUNT,
   MAX_PUBLICATION_COUNT,
   ExitCode,
-} = require(`../constants`);
+} = require(`../../../constants`);
 
 const {
   getRandomInt,

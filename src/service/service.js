@@ -1,7 +1,7 @@
 'use strict';
 
 const {Cli} = require(`./cli`);
-const {DEFAULT_COMMAND} = require(`./constants`);
+const {DEFAULT_COMMAND} = require(`../../constants`);
 
 const [, , optionName, optionValue] = process.argv;
 if (!optionName || !Cli[optionName]) {
