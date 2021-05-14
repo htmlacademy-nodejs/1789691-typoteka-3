@@ -11,6 +11,8 @@ const categoriesRoutes = require(`./routes/categories`);
 const port = 8080;
 
 const app = express();
+app.set(`views`, `./templates`);
+app.set(`view engine`, `pug`);
 
 app.use(`/`, mainRoutes);
 app.use(`/articles`, articlesRoutes);
