@@ -2,7 +2,7 @@
 
 const DEFAULT_COMMAND = `--help`;
 const DEFAULT_COUNT = 1;
-const DEFAULT_PORT = 3000;
+const DEFAULT_PORT = 8080;
 const FILE_NAME = `mocks.json`;
 const MAX_PUBLICATION_COUNT = 1000;
 const FULL_MONTH_COUNT = 2;
