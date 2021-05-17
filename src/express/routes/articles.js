@@ -14,7 +14,7 @@ router.get(`/edit/:id`, (req, res) => {
 });
 
 router.get(`/category/:id`, (req, res) => {
-  res.send(`/articles/category/${req.params.id}`);
+  res.render(`articles-by-category`);
 });
 
 router.get(`/:id`, (req, res) => {
