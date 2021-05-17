@@ -9,7 +9,7 @@ router.get(`/`, (req, res) => {
 });
 
 router.get(`/comments`, (req, res) => {
-  res.send(`/my/comments`);
+  res.render(`comments`);
 });
 
 module.exports = router;
