@@ -5,7 +5,7 @@ const {Router} = require(`express`);
 const router = new Router();
 
 router.get(`/`, (req, res) => {
-  res.send(`/categories`);
+  res.render(`all-categories`);
 });
 
 module.exports = router;
