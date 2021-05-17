@@ -5,7 +5,7 @@ const {Router} = require(`express`);
 const router = new Router();
 
 router.get(`/:id`, (req, res) => {
-  res.send(`/articles/${req.params.id}`);
+  res.render(`post`);
 });
 
 router.get(`/add`, (req, res) => {
