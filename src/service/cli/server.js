@@ -1,55 +1,36 @@
 'use strict';
 
-const http = require(`http`);
+const express = require(`express`);
 const chalk = require(`chalk`);
 const fs = require(`fs`).promises;
 const {DEFAULT_PORT, FILE_NAME, HttpCodes} = require(`../../../constants`);
 
-const sendResponse = (res, statusCode, message) => {
-  const template = `
-    <!Doctype html>
-      <html lang="ru">
-      <head>
-        <title>With love from Node</title>
-      </head>
-      <body>${message}</body>
-    </html>`.trim();
-  res.writeHead(statusCode, {
-    'Content-Type': `text/html; charset=UTF8`
-  });
-  res.end(template);
-};
-
-const onClientConnect = async (req, res) => {
-  const notFoundMessage = `Not found`;
-  switch (req.url) {
-    case `/`:
-      try {
-        const content = await fs.readFile(FILE_NAME);
-        const mocks = JSON.parse(content);
-        const listItems = mocks.map((mock) => `<li>${mock.title}</li>`).join(``);
-        sendResponse(res, HttpCodes.OK, `<ul>${listItems}</ul>`);
-      } catch (error) {
-        sendResponse(res, HttpCodes.NOT_FOUND, notFoundMessage);
-      }
-      break;
-    default:
-      sendResponse(res, HttpCodes.NOT_FOUND, notFoundMessage);
-  }
-};
+const app = express();
+app.use(express.json());
 
 module.exports = {
   name: `--server`,
   run(customPort) {
     const port = Number(customPort) || DEFAULT_PORT;
-    http.createServer(onClientConnect)
-      .listen(port)
-      .on(`listening`, () => {
-        console.info(chalk.green(`Server is running on ${port}`));
-      })
-      .on(`error`, (error) => {
-        console.error(chalk.red(`Server error:`), error);
-      });
 
+    app.listen(port, () => {
+      console.info(chalk.blue(`The Express server is running on ${DEFAULT_PORT} port. The '/posts' route available.`));
+    });
+
+    app.get(`/posts`, async (req, res) => {
+      try {
+        const content = await fs.readFile(FILE_NAME);
+        const mocks = JSON.parse(content);
+        res.json(mocks);
+      } catch (error) {
+        res.status(HttpCodes.INTERNAL_SERVER_ERROR).send(error);
+      }
+    });
+
+    app.use(
+      (req, res) => res
+        .status(HttpCodes.NOT_FOUND)
+        .send(`Not found`)
+    );
   },
 };
