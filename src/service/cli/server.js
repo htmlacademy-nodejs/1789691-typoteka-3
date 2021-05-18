@@ -28,9 +28,9 @@ module.exports = {
     });
 
     app.use(
-      (req, res) => res
-        .status(HttpCodes.NOT_FOUND)
-        .send(`Not found`)
+        (req, res) => res
+          .status(HttpCodes.NOT_FOUND)
+          .send(`Not found`)
     );
   },
 };
