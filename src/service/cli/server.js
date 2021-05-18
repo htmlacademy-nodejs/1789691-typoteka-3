@@ -14,7 +14,7 @@ module.exports = {
     const port = Number(customPort) || DEFAULT_PORT;
 
     app.listen(port, () => {
-      console.info(chalk.blue(`The Express server is running on ${DEFAULT_PORT} port. The '/posts' route available.`));
+      console.info(chalk.blue(`The Express server is running on ${port} port. The '/posts' route available.`));
     });
 
     app.get(`/posts`, async (req, res) => {
