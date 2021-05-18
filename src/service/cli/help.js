@@ -7,6 +7,7 @@ const HELP = `
 --help              выводит справку
 --generate <count>  генерирует тестовые данные в mocks.json файл
 --version           выводит версию программы
+--server <port>     запускает сервер для отображения моков
 `;
 
 module.exports = {
