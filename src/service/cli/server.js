@@ -23,7 +23,8 @@ module.exports = {
         const mocks = JSON.parse(content);
         res.json(mocks);
       } catch (error) {
-        res.status(HttpCodes.INTERNAL_SERVER_ERROR).send(error);
+        console.error(chalk.red(`Cannot get mocks. Error:`), error);
+        res.send([]);
       }
     });
 
