@@ -4,6 +4,7 @@ const {
   DEFAULT_COUNT,
   FILE_NAME,
   FULL_MONTH_COUNT,
+  MAX_ID_LENGTH,
   MAX_PUBLICATION_COUNT,
   ExitCode,
 } = require(`../../../constants`);
@@ -15,6 +16,7 @@ const {
 
 const fs = require(`fs`).promises;
 const chalk = require(`chalk`);
+const {nanoid} = require(`nanoid`);
 
 const CATEGORIES_FILE_NAME = `./data/categories.txt`;
 const SENTENCES_FILE_NAME = `./data/sentences.txt`;
@@ -46,6 +48,7 @@ const getRandomArrayItems = (texts, limit) => {
 
 const generatePublications = (categories, sentences, titles, count) => {
   return Array(count).fill({}).map(() => ({
+    id: nanoid(MAX_ID_LENGTH),
     title: titles[getRandomInt(0, titles.length - 1)],
     createdDate: getDate(),
     announce: getRandomArrayItems(sentences, 5).join(` `),
