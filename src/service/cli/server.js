@@ -4,6 +4,7 @@ const express = require(`express`);
 const chalk = require(`chalk`);
 const fs = require(`fs`).promises;
 const {DEFAULT_PORT, FILE_NAME, HttpCodes} = require(`../../../constants`);
+const getMockData = require(`../lib/get-mock-data`);
 
 const app = express();
 app.use(express.json());
@@ -19,11 +20,9 @@ module.exports = {
 
     app.get(`/posts`, async (req, res) => {
       try {
-        const content = await fs.readFile(FILE_NAME);
-        const mocks = JSON.parse(content);
-        res.json(mocks);
+        const data = await getMockData();
+        res.json(data);
       } catch (error) {
-        console.error(chalk.red(`Cannot get mocks. Error:`), error);
         res.send([]);
       }
     });
