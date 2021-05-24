@@ -19,8 +19,10 @@ const chalk = require(`chalk`);
 const {nanoid} = require(`nanoid`);
 
 const CATEGORIES_FILE_NAME = `./data/categories.txt`;
+const COMMENTS_FILE_NAME = `./data/comments.txt`;
 const SENTENCES_FILE_NAME = `./data/sentences.txt`;
 const TITLES_FILE_NAME = `./data/titles.txt`;
+const MAX_COMMENTS  = 4;
 
 const readFile = async (filePath) => {
   try {
@@ -31,6 +33,15 @@ const readFile = async (filePath) => {
     return [];
   }
 };
+
+const generateComments = (comments, count) => (
+  Array(count).fill({}).map(() => 
+    ({
+      id: nanoid(MAX_ID_LENGTH),
+      text: getRandomArrayItems(comments).join(` `),
+    })
+  )
+);
 
 const getDate = () => {
   const currentMonthNum = new Date().getMonth();
@@ -46,7 +57,7 @@ const getRandomArrayItems = (texts, limit) => {
   return shuffle(texts).slice(0, textCount);
 };
 
-const generatePublications = (categories, sentences, titles, count) => {
+const generatePublications = (categories, comments, sentences, titles, count) => {
   return Array(count).fill({}).map(() => ({
     id: nanoid(MAX_ID_LENGTH),
     title: titles[getRandomInt(0, titles.length - 1)],
@@ -54,6 +65,7 @@ const generatePublications = (categories, sentences, titles, count) => {
     announce: getRandomArrayItems(sentences, 5).join(` `),
     fullText: getRandomArrayItems(sentences).join(` `),
     category: getRandomArrayItems(categories),
+    comments: generateComments(comments, getRandomInt(1, MAX_COMMENTS)),
   }));
 };
 
@@ -69,10 +81,11 @@ module.exports = {
     }
 
     const categories = await readFile(CATEGORIES_FILE_NAME);
+    const comments = await readFile(COMMENTS_FILE_NAME);
     const sentences = await readFile(SENTENCES_FILE_NAME);
     const titles = await readFile(TITLES_FILE_NAME);
 
-    const publications = generatePublications(categories, sentences, titles, publicationCount);
+    const publications = generatePublications(categories, comments, sentences, titles, publicationCount);
     try {
       await fs.writeFile(FILE_NAME, JSON.stringify(publications));
       console.info(chalk.green(`Operation succeded. File has been created and contains ${publications.length} items.`));
