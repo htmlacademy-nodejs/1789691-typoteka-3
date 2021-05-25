@@ -3,6 +3,7 @@
 
 const {Router} = require(`express`);
 const {HttpCodes} = require(`../../../constants`);
+const articleValidator = require(`../middlewares/article-validator`);
 
 const route = new Router();
 
@@ -22,4 +23,8 @@ module.exports = (app, service) => {
     res.status(HttpCodes.OK).json(article);
   });
 
+  route.post(`/`, articleValidator, (req, res) => {
+    const article = service.create(req.body);
+    res.status(HttpCodes.CREATED).json(article);
+  });
 };
