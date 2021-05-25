@@ -2,12 +2,13 @@
 
 const express = require(`express`);
 const chalk = require(`chalk`);
-const fs = require(`fs`).promises;
-const {DEFAULT_PORT, FILE_NAME, HttpCodes} = require(`../../../constants`);
+const {API_PREFIX, DEFAULT_PORT, HttpCodes} = require(`../../../constants`);
 const getMockData = require(`../lib/get-mock-data`);
+const routes = require(`../api`);
 
 const app = express();
 app.use(express.json());
+app.use(API_PREFIX, routes);
 
 module.exports = {
   name: `--server`,

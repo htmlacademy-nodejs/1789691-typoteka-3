@@ -1,5 +1,6 @@
 'use strict';
 
+const API_PREFIX = `/api`;
 const DEFAULT_COMMAND = `--help`;
 const DEFAULT_COUNT = 1;
 const DEFAULT_PORT = 8080;
@@ -24,6 +25,7 @@ const HttpCodes = {
 };
 
 module.exports = {
+  API_PREFIX,
   DEFAULT_COMMAND,
   DEFAULT_COUNT,
   DEFAULT_PORT,
