@@ -26,6 +26,14 @@ class ArticleService {
   findOne(id) {
     return this._articles.find((a) => a.id === id);
   }
+
+  update(id, newArticle) {
+    const currentArticle = this._articles.find((a) => a.id === id);
+    if (!currentArticle) {
+      return null;
+    }
+    return Object.assign(currentArticle, newArticle);
+  }
 }
 
 module.exports = ArticleService;
