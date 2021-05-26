@@ -5,10 +5,11 @@ const {Router} = require(`express`);
 const {HttpCodes} = require(`../../../constants`);
 const articleValidator = require(`../middlewares/article-validator`);
 const articleExists = require(`../middlewares/article-exists`);
+const commentValidator = require(`../middlewares/comment-validator`);
 
 const route = new Router();
 
-module.exports = (app, articleService) => {
+module.exports = (app, articleService, commentService) => {
   app.use(`/articles`, route);
 
   route.get(`/`, (req, res) => {
@@ -39,5 +40,11 @@ module.exports = (app, articleService) => {
   route.get(`/:id/comments`, articleExists(articleService), (req, res) => {
     const {article} = res.locals;
     res.status(HttpCodes.OK).json(article.comments);
+  });
+
+  route.post(`/:id/comments`, [articleExists(articleService), commentValidator], (req, res) => {
+    const {article} = res.locals;
+    const comment = commentService.create(article, req.body);
+    res.status(HttpCodes.CREATED).json(comment);
   });
 };
