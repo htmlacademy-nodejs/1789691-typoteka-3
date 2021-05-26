@@ -30,4 +30,9 @@ module.exports = (app, service) => {
     const article = service.update(req.params.id, req.body);
     res.status(HttpCodes.OK).send(`Updated`);
   });
+
+  route.delete(`/:id`, articleExists(service), (req, res) => {
+    const article = service.delete(req.params.id);
+    res.status(HttpCodes.OK).json(article);
+  });
 };

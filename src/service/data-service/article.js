@@ -19,6 +19,11 @@ class ArticleService {
     return newArticle;
   }
 
+  delete(id) {
+    const articleIdx = this._articles.findIndex((a) => a.id === id);
+    return this._articles.splice(articleIdx, 1);
+  }
+
   findAll() {
     return this._articles;
   }
