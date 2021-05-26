@@ -35,4 +35,9 @@ module.exports = (app, service) => {
     const article = service.delete(req.params.id);
     res.status(HttpCodes.OK).json(article);
   });
+
+  route.get(`/:id/comments`, articleExists(service), (req, res) => {
+    const {article} = res.locals;
+    res.status(HttpCodes.OK).json(article.comments);
+  });
 };
