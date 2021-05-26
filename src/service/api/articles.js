@@ -16,11 +16,8 @@ module.exports = (app, service) => {
     res.status(HttpCodes.OK).json(articles);
   });
 
-  route.get(`/:id`, (req, res) => {
+  route.get(`/:id`, articleExists(service), (req, res) => {
     const article = service.findOne(req.params.id);
-    if (!article) {
-      return res.status(HttpCodes.NOT_FOUND).send(`The article with id: '${req.params.id}' does not found`);
-    }
     res.status(HttpCodes.OK).json(article);
   });
 
@@ -31,9 +28,6 @@ module.exports = (app, service) => {
 
   route.put(`/:id`, [articleValidator, articleExists(service)], (req, res) => {
     const article = service.update(req.params.id, req.body);
-    if (!article) {
-      return res.status(HttpCodes.NOT_FOUND).send(`The article with id: '${req.params.id}' does not found`);
-    }
     res.status(HttpCodes.OK).send(`Updated`);
   });
 };

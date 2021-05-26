@@ -28,7 +28,7 @@ class ArticleService {
   }
 
   update(id, newArticle) {
-    const currentArticle = this._articles.find((a) => a.id === id);
+    const currentArticle = this.findOne(id);
     return Object.assign(currentArticle, newArticle);
   }
 }
