@@ -1,6 +1,6 @@
 'use strict';
 
-const { HttpCodes } = require("../../../constants");
+const {HttpCodes} = require(`../../../constants`);
 
 module.exports = (service) => {
   return (req, res, next) => {
@@ -10,6 +10,6 @@ module.exports = (service) => {
     }
 
     res.locals.article = article;
-    next();
-  }
+    return next();
+  };
 };

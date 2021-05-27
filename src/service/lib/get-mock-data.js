@@ -18,6 +18,6 @@ const getMockData = async () => {
     console.error(chalk.red(`Cannot get mocks. Error:`), error);
     return Promise.reject(error);
   }
-}
+};
 
 module.exports = getMockData;

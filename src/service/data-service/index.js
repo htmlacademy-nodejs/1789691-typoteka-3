@@ -10,4 +10,4 @@ module.exports = {
   CategoryService,
   CommentService,
   SearchService,
-}
+};

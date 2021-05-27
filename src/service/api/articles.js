@@ -28,7 +28,7 @@ module.exports = (app, articleService, commentService) => {
   });
 
   route.put(`/:id`, [articleValidator, articleExists(articleService)], (req, res) => {
-    const article = articleService.update(req.params.id, req.body);
+    articleService.update(req.params.id, req.body);
     res.status(HttpCodes.OK).send(`Updated`);
   });
 
@@ -54,6 +54,6 @@ module.exports = (app, articleService, commentService) => {
     if (!comment) {
       return res.status(HttpCodes.NOT_FOUND).send(`Not found`);
     }
-    res.status(HttpCodes.OK).json(comment);
+    return res.status(HttpCodes.OK).json(comment);
   });
 };

@@ -22,7 +22,7 @@ const CATEGORIES_FILE_NAME = `./data/categories.txt`;
 const COMMENTS_FILE_NAME = `./data/comments.txt`;
 const SENTENCES_FILE_NAME = `./data/sentences.txt`;
 const TITLES_FILE_NAME = `./data/titles.txt`;
-const MAX_COMMENTS  = 4;
+const MAX_COMMENTS = 4;
 
 const readFile = async (filePath) => {
   try {
@@ -35,7 +35,7 @@ const readFile = async (filePath) => {
 };
 
 const generateComments = (comments, count) => (
-  Array(count).fill({}).map(() => 
+  Array(count).fill({}).map(() =>
     ({
       id: nanoid(MAX_ID_LENGTH),
       text: getRandomArrayItems(comments).join(` `),

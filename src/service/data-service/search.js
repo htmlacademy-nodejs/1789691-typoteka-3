@@ -1,7 +1,7 @@
 'use strict';
 
 class SearchService {
-  constructor (articles) {
+  constructor(articles) {
     this._articles = articles;
   }
 

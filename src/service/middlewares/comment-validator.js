@@ -11,7 +11,7 @@ const commentValidator = (req, res, next) => {
     return res.status(HttpCodes.BAD_REQUEST).send(`Bad request`);
   }
 
-  next();
-}
+  return next();
+};
 
 module.exports = commentValidator;
