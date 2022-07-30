@@ -4,9 +4,9 @@ const {HttpCodes} = require(`../../../constants`);
 
 const articleKeys = [`title`, `announce`, `fullText`, `category`];
 
-const isArticleValid = (reqBody) => {
-  const newArticleKeys = Object.keys(reqBody);
-  return newArticleKeys.every((key) => articleKeys.includes(key));  
+const isArticleValid = (body) => {
+  const newArticleKeys = Object.keys(body);
+  return articleKeys.every((key) => newArticleKeys.includes(key));  
 }
 
 const articleValidator = (req, res, next) => {  
@@ -17,4 +17,7 @@ const articleValidator = (req, res, next) => {
   return next();
 };
 
-module.exports = articleValidator;
+module.exports = {
+  articleValidator,
+  isArticleValid,
+};
