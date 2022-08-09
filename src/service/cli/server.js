@@ -24,4 +24,5 @@ module.exports = {
       console.info(chalk.blue(`The Express server is running on ${port} port.`));
     });
   },
+  server: app,
 };
