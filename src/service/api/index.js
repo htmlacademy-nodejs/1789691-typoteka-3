@@ -12,12 +12,14 @@ const {
 const articles = require(`./articles`);
 const categories = require(`./categories`);
 const search = require(`./search`);
-const getMockData = require(`../lib/get-mock-data`);
+const { getMockData, getMockDataSync } = require(`../lib/get-mock-data`);
 
 const app = new Router();
 
-(async () => {
-  const data = await getMockData();
+// (async () => {
+  // const data = await getMockData();
+(() => {
+  const data = getMockDataSync();
   articles(app, new ArticleService(data), new CommentService());
   categories(app, new CategoryService(data));
   search(app, new SearchService(data));
