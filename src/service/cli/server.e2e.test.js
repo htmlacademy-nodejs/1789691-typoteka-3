@@ -54,7 +54,6 @@ describe('Articles request testing.', () => {
       .set('Content-Type', 'application/json')
 
     expect(res.statusCode).toBe(HttpCodes.CREATED)
-    console.log('Test 2 res.body:', res.body)
 
     expect(res.body).toHaveProperty('id')
     expect(res.body).toHaveProperty('createdDate')
