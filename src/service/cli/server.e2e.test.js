@@ -5,7 +5,6 @@ const server = require('./server').server
 const { HttpCodes, MAX_ID_LENGTH } = require(`../../../constants`);
 const { isArticleValid } = require(`../middlewares/article-validator`);
 
-
 describe('Articles request testing.', () => {
 
   test('To get articles. The status code should be 200', async () => {
@@ -64,4 +63,16 @@ describe('Articles request testing.', () => {
 
     expect(Array.isArray(res.body.comments)).toBe(true)
   })
+  
+  test('Failed article creation (no required fields)', async () => {
+    const res = await supertest(server)
+      .post('/api/articles')
+      .send({
+        'testField': 'testValue'
+      })
+      .set('Content-Type', 'application/json')
+
+    expect(res.statusCode).toBe(HttpCodes.BAD_REQUEST)
+  })
+
 })
