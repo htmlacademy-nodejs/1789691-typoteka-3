@@ -75,4 +75,14 @@ describe('Articles request testing.', () => {
     expect(res.statusCode).toBe(HttpCodes.BAD_REQUEST)
   })
 
+  test('Delete the last article', async () => {
+    const articles = await supertest(server).get('/api/articles')
+    const id = articles.body[articles.body.length - 1].id
+    
+    const res = await supertest(server).delete(`/api/articles/${id}`)
+    expect(res.statusCode).toBe(HttpCodes.OK)
+    expect(res.body[0]).toHaveProperty('id')
+    expect(isArticleValid(res.body[0])).toBe(true)
+  })
+
 })
