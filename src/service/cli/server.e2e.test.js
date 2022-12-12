@@ -94,4 +94,23 @@ describe('Articles request testing.', () => {
     expect(res.body[0]).toHaveProperty('id')
   })
 
+  test('Add an article to the last comment', async () => {
+    const articles = await supertest(server).get('/api/articles')
+    const articleId = articles.body[articles.body.length - 1].id
+    const commentText = 'The test comment'
+    
+    const res = await supertest(server)
+      .post(`/api/articles/${articleId}/comments`)
+      .send({
+        text: commentText,
+      })
+      .set('Content-Type', 'application/json')
+
+      expect(res.statusCode).toBe(HttpCodes.CREATED)
+
+      expect(res.body).toHaveProperty('id')
+      expect(res.body).toHaveProperty('text')
+      expect(res.body.text).toBe(commentText)
+  })
+
 })
