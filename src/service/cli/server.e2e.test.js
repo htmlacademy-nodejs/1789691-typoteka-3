@@ -113,4 +113,17 @@ describe('Articles request testing.', () => {
       expect(res.body.text).toBe(commentText)
   })
 
+  test('Delete the last comment of the last article', async () => {
+    const articles = await supertest(server).get('/api/articles')
+    const articleId = articles.body[articles.body.length - 1].id
+
+    const comments = await supertest(server).get(`/api/articles/${articleId}/comments`)
+    const commentId = comments.body[comments.body.length - 1].id
+
+    const res = await supertest(server).delete(`/api/articles/${articleId}/comments/${commentId}`)
+    expect(res.statusCode).toBe(HttpCodes.OK)
+    expect(res.body[0]).toHaveProperty('id')
+    expect(res.body[0]).toHaveProperty('text')
+  })
+
 })
