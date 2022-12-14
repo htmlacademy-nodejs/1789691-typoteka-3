@@ -125,5 +125,15 @@ describe('Articles request testing.', () => {
     expect(res.body[0]).toHaveProperty('id')
     expect(res.body[0]).toHaveProperty('text')
   })
+  
+  test('Delete the unknown comment', async () => {
+    const articles = await supertest(server).get('/api/articles')
+    const articleId = articles.body[articles.body.length - 1].id
+
+    const commentId = 'testCommentId'
+    const res = await supertest(server).delete(`/api/articles/${articleId}/comments/${commentId}`)
+    expect(res.statusCode).toBe(HttpCodes.NOT_FOUND)
+    expect(res.text).toBe('Not found')
+  })
 
 })
