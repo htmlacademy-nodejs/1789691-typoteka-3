@@ -136,4 +136,14 @@ describe('Articles request testing.', () => {
     expect(res.text).toBe('Not found')
   })
 
+
+  describe('Categories request testing.', () => {
+
+    test('Get categories', async () => {
+      const res = await supertest(server).get('/api/categories')
+      expect(res.statusCode).toBe(HttpCodes.OK)
+      expect(Array.isArray(res.body)).toBe(true)
+    })
+  })
+
 })
