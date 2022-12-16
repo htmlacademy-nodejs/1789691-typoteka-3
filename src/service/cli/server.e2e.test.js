@@ -146,4 +146,22 @@ describe('Articles request testing.', () => {
     })
   })
 
+  describe('Search request testing.', () => {
+
+    test('No query parameter', async () => {
+      const res = await supertest(server).get('/api/search')
+      console.log('res:', res.text)
+      expect(res.statusCode).toBe(HttpCodes.BAD_REQUEST)
+      expect(typeof res.text).toBe('string')
+    })
+
+    test('Empty query parameter', async () => {
+      const res = await supertest(server).get('/api/search?query=')
+      console.log('res:', res)
+      expect(res.statusCode).toBe(HttpCodes.OK)
+      expect(Array.isArray(res.body)).toBe(true)
+      expect(res.body.length).toBe(0)
+    })
+  })
+  
 })
