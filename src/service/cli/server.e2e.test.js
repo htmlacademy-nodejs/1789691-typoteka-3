@@ -41,14 +41,14 @@ describe('Articles request testing.', () => {
     expect(Array.isArray(res.body.comments)).toBe(true)
   })
 
-  test('To create an article', async () => {
+  test('Create an article', async () => {
     const res = await supertest(server)
       .post('/api/articles')
       .send({
         "title": "The test title",
         "announce": "It is the first test article",
         "fullText": "The article has been created by supertest",
-        "category": "Разное"
+        "category": ["Разное"]
       })
       .set('Content-Type', 'application/json')
 
