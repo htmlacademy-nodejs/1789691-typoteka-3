@@ -5,6 +5,8 @@
   "main": "./src/service/service.js",
   "scripts": {
     "test": "jest --verbose",
+    "test.cov": "jest --verbose --coverage",
+    "test.changed": "jest --onlyChanged",
     "eslint": "eslint --ext .js src/",
     "start": "node ./src/service/service.js",
     "start.dev": "nodemon ./src/service/service.js --server",
