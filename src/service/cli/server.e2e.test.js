@@ -199,4 +199,14 @@ describe('Search request testing.', () => {
     expect(Array.isArray(res.body)).toBe(true)
     expect(res.body.length).toBe(0)
   })
+
+  test('Succesfull search', async () => {
+    const articles = await supertest(server).get('/api/articles')
+    const firstTitle = articles.body[0].title
+
+    const res = await supertest(server).get(`/api/search?query=${firstTitle}`)
+    expect(res.statusCode).toBe(HttpCodes.OK)
+    expect(Array.isArray(res.body)).toBe(true)
+    expect(res.body.length).toBeGreaterThan(0)
+  })
 })
