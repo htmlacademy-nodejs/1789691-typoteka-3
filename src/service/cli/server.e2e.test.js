@@ -172,31 +172,31 @@ describe('Articles request testing.', () => {
     expect(res.statusCode).toBe(HttpCodes.NOT_FOUND)
     expect(res.text).toBe('Not found')
   })
+})
 
 
-  describe('Categories request testing.', () => {
+describe('Categories request testing.', () => {
 
-    test('Get categories', async () => {
-      const res = await supertest(server).get('/api/categories')
-      expect(res.statusCode).toBe(HttpCodes.OK)
-      expect(Array.isArray(res.body)).toBe(true)
-    })
+  test('Get categories', async () => {
+    const res = await supertest(server).get('/api/categories')
+    expect(res.statusCode).toBe(HttpCodes.OK)
+    expect(Array.isArray(res.body)).toBe(true)
+  })
+})
+
+
+describe('Search request testing.', () => {
+
+  test('No query parameter', async () => {
+    const res = await supertest(server).get('/api/search')
+    expect(res.statusCode).toBe(HttpCodes.BAD_REQUEST)
+    expect(typeof res.text).toBe('string')
   })
 
-  describe('Search request testing.', () => {
-
-    test('No query parameter', async () => {
-      const res = await supertest(server).get('/api/search')
-      expect(res.statusCode).toBe(HttpCodes.BAD_REQUEST)
-      expect(typeof res.text).toBe('string')
-    })
-
-    test('Empty query parameter', async () => {
-      const res = await supertest(server).get('/api/search?query=')
-      expect(res.statusCode).toBe(HttpCodes.OK)
-      expect(Array.isArray(res.body)).toBe(true)
-      expect(res.body.length).toBe(0)
-    })
+  test('Empty query parameter', async () => {
+    const res = await supertest(server).get('/api/search?query=')
+    expect(res.statusCode).toBe(HttpCodes.OK)
+    expect(Array.isArray(res.body)).toBe(true)
+    expect(res.body.length).toBe(0)
   })
-  
 })
