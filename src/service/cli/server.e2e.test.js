@@ -210,3 +210,12 @@ describe('Search request testing.', () => {
     expect(res.body.length).toBeGreaterThan(0)
   })
 })
+
+
+describe('Common server testing.', () => {
+
+  test('Get unreal route', async () => {
+    const res = await supertest(server).get('/api/fake')
+    expect(res.statusCode).toBe(HttpCodes.NOT_FOUND)
+  })
+})
