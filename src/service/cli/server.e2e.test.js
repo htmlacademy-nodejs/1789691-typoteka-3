@@ -94,6 +94,24 @@ describe('Articles request testing.', () => {
     expect(res.text).toEqual(`Updated`)
   })
 
+  test('Incorrect article update', async () => {
+    const articlesRes = await supertest(server).get('/api/articles')
+    const articleId = articlesRes.body[0].id
+
+    const res = await supertest(server)
+      .put(`/api/articles/${articleId}`)
+      .send({
+        "title": "The updated test title",
+        "announce": "It is the updated test article",
+        "fullText": "The article has been updated by supertest",
+        "category": "Разное" // incorrect value - the array required
+      })
+      .set('Content-Type', 'application/json')
+
+    expect(res.statusCode).toBe(HttpCodes.BAD_REQUEST)
+    expect(typeof res.text).toEqual('string')
+  })
+
   test('Delete the last article', async () => {
     const articles = await supertest(server).get('/api/articles')
     const id = articles.body[articles.body.length - 1].id
