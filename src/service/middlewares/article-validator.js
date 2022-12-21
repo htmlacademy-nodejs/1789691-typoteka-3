@@ -6,7 +6,11 @@ const articleKeys = [`title`, `announce`, `fullText`, `category`];
 
 const isArticleValid = (body) => {
   const newArticleKeys = Object.keys(body);
-  return articleKeys.every((key) => newArticleKeys.includes(key));  
+  const keyCheckResult = articleKeys.every((key) => newArticleKeys.includes(key));  
+  if (!keyCheckResult) {
+    return false
+  }
+  return Array.isArray(body.category)
 }
 
 const articleValidator = (req, res, next) => {  
