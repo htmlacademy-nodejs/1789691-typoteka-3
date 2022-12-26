@@ -16,6 +16,10 @@ const logger = require(`pino`)({
 app.use(
   (req, res, next) => {
     logger.debug('Request: %s', req.url)
+
+    res.on('finish', () => {
+      logger.info('Response status code: %d', res.statusCode)
+    })
     next()
   }
 );
