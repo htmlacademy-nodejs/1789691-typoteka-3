@@ -10,7 +10,7 @@ app.use(express.json());
 
 const logger = require(`pino`)({
   name: `pino-and-express`,
-  level: `debug`
+  level: process.env.LOG_LEVEL || `info`
 });
 
 app.use(

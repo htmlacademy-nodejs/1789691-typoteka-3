@@ -19,7 +19,7 @@ const chalk = require(`chalk`);
 const {nanoid} = require(`nanoid`);
 const logger = require(`pino`)({
   name: `pino-and-express`,
-  level: `debug`
+  level: process.env.LOG_LEVEL || `info`
 });
 
 const CATEGORIES_FILE_NAME = `./data/categories.txt`;
