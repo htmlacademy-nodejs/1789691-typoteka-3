@@ -4,6 +4,10 @@ const fs = require(`fs/promises`);
 const fsCommon = require(`fs`);
 const chalk = require(`chalk`);
 const {FILE_NAME} = require(`../../../constants`);
+const logger = require(`pino`)({
+  name: `pino-and-express`,
+  level: `debug`
+});
 let data = null;
 
 const getMockData = async () => {
@@ -16,7 +20,7 @@ const getMockData = async () => {
     data = JSON.parse(content);
     return Promise.resolve(data);
   } catch (error) {
-    console.error(chalk.red(`Cannot get mocks. Error:`), error);
+    logger.error(`Cannot get mocks. Error: %s`, error);
     return Promise.reject(error);
   }
 };
@@ -31,7 +35,7 @@ const getMockDataSync = () => {
     data = JSON.parse(content);
     return data;
   } catch (error) {
-    console.error(chalk.red(`Cannot get mocks synchronously. Error:`), error);
+    logger.error(`Cannot get mocks synchronously. Error: %s`, error);
     return error;
   }
 };
