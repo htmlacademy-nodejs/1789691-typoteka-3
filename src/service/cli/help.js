@@ -1,6 +1,10 @@
 'use strict';
 
 const chalk = require(`chalk`);
+const logger = require(`pino`)({
+  name: `pino-and-express`,
+  level: `debug`
+});
 
 const HELP = `
 Доступные команды:
@@ -13,6 +17,6 @@ const HELP = `
 module.exports = {
   name: `--help`,
   run() {
-    console.info(chalk.grey(HELP));
+    logger.info(HELP);
   },
 };
