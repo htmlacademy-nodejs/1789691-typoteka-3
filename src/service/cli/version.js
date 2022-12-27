@@ -2,10 +2,14 @@
 
 const packageJsonFile = require(`../../../package.json`);
 const chalk = require(`chalk`);
+const logger = require(`pino`)({
+  name: `pino-and-express`,
+  level: `debug`
+});
 
 module.exports = {
   name: `--version`,
   run() {
-    console.info(chalk.blue(`Version: ${packageJsonFile.version}`));
+    logger.info(`Version: ${packageJsonFile.version}`);
   }
 };
