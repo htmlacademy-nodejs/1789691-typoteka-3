@@ -17,6 +17,10 @@ const {
 const fs = require(`fs`).promises;
 const chalk = require(`chalk`);
 const {nanoid} = require(`nanoid`);
+const logger = require(`pino`)({
+  name: `pino-and-express`,
+  level: `debug`
+});
 
 const CATEGORIES_FILE_NAME = `./data/categories.txt`;
 const COMMENTS_FILE_NAME = `./data/comments.txt`;
@@ -29,7 +33,7 @@ const readFile = async (filePath) => {
     const content = await fs.readFile(filePath, `utf8`);
     return content.split(`\n`).filter((row) => row.length);
   } catch (error) {
-    console.error(chalk.red(`Cannot read the file ${filePath}`), error);
+    logger.error(`Cannot read the file ${filePath}. Error: %s`, error);
     return [];
   }
 };
@@ -76,7 +80,7 @@ module.exports = {
     const publicationCount = Number(count) || DEFAULT_COUNT;
 
     if (publicationCount > MAX_PUBLICATION_COUNT) {
-      console.error(chalk.red(`Не больше 1000 публикаций`));
+      logger.error(`No more than 1000 publications`);
       process.exit(ExitCode.FAIL);
     }
 
@@ -88,9 +92,9 @@ module.exports = {
     const publications = generatePublications(categories, comments, sentences, titles, publicationCount);
     try {
       await fs.writeFile(FILE_NAME, JSON.stringify(publications));
-      console.info(chalk.green(`Operation succeded. File has been created and contains ${publications.length} items.`));
+      logger.info(`Operation succeded. File has been created and contains ${publications.length} items.`);
     } catch (error) {
-      console.error(chalk.red(`Can't write data to file. Error:`), error);
+      logger.error(`Can't write data to file. Error: %s`, error);
       process.exit(ExitCode.FAIL);
     }
   },
