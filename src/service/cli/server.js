@@ -3,12 +3,35 @@
 const express = require(`express`);
 const chalk = require(`chalk`);
 const {API_PREFIX, DEFAULT_PORT, HttpCodes} = require(`../../../constants`);
-const getMockData = require(`../lib/get-mock-data`);
 const routes = require(`../api`);
 
 const app = express();
 app.use(express.json());
+
+const { getLogger } = require('../lib/logger.js')
+const logger = getLogger()
+
+app.use(
+  (req, res, next) => {
+    logger.debug('Request: %s', req.url)
+
+    res.on('finish', () => {
+      logger.info('Response status code: %d', res.statusCode)
+    })
+    next()
+  }
+);
+
 app.use(API_PREFIX, routes);
+app.use(
+  (req, res) => {
+    const message = `Route not found`
+    logger.error(message)
+    res
+      .status(HttpCodes.NOT_FOUND)
+      .send(message)
+  }
+);
 
 module.exports = {
   name: `--server`,
@@ -16,22 +39,11 @@ module.exports = {
     const port = Number(customPort) || DEFAULT_PORT;
 
     app.listen(port, () => {
-      console.info(chalk.blue(`The Express server is running on ${port} port.`));
-    });
-
-    app.get(`/posts`, async (req, res) => {
-      try {
-        const data = await getMockData();
-        res.json(data);
-      } catch (error) {
-        res.send([]);
-      }
-    });
-
-    app.use(
-        (req, res) => res
-          .status(HttpCodes.NOT_FOUND)
-          .send(`Not found`)
-    );
+      logger.info(`The Express server is running on port ${port}.`)
+    })
+    .on('error', (error) => {
+      logger.error('Express server error: %o', error)
+    })
   },
+  server: app,
 };

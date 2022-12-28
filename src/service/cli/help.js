@@ -1,6 +1,8 @@
 'use strict';
 
 const chalk = require(`chalk`);
+const { getLogger } = require('../lib/logger.js')
+const logger = getLogger()
 
 const HELP = `
 Доступные команды:
@@ -13,6 +15,6 @@ const HELP = `
 module.exports = {
   name: `--help`,
   run() {
-    console.info(chalk.grey(HELP));
+    logger.info(HELP);
   },
 };

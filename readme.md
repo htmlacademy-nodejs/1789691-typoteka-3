@@ -9,6 +9,21 @@ _Не удаляйте и не изменяйте папки и файлы:_
 _`.editorconfig`, `.gitattributes`, `.gitignore`, `.travis.yml`, `package.json`._
 
 ---
+### Замечание по деплою.
+**ВАЖНО:**
+
+1. Пакет Pino 8.x на Node 14 выдаёт странную ошибку:
+```
+const registry = new FinalizationRegistry(clear)
+                 ^
+
+ReferenceError: FinalizationRegistry is not defined
+```
+
+из-за этого пришлось переключиться на Node 16.
+
+2. На Windows необходимо в консоли выполнить `chcp 65001` для нормального отображения русского текста в pino-логах.
+
 
 ### Памятка
 

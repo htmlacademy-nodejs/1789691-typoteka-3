@@ -5,7 +5,7 @@ const {MAX_ID_LENGTH} = require(`../../../constants`);
 
 class ArticleService {
   constructor(articles) {
-    this._articles = articles;
+    this._articles = articles || [];
   }
 
   create(article) {
