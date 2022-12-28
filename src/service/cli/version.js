@@ -2,10 +2,8 @@
 
 const packageJsonFile = require(`../../../package.json`);
 const chalk = require(`chalk`);
-const logger = require(`pino`)({
-  name: `pino-and-express`,
-  level: process.env.LOG_LEVEL || `info`
-});
+const { getLogger } = require('../logger.js')
+const logger = getLogger()
 
 module.exports = {
   name: `--version`,

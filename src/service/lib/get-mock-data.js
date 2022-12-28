@@ -4,10 +4,8 @@ const fs = require(`fs/promises`);
 const fsCommon = require(`fs`);
 const chalk = require(`chalk`);
 const {FILE_NAME} = require(`../../../constants`);
-const logger = require(`pino`)({
-  name: `pino-and-express`,
-  level: process.env.LOG_LEVEL || `info`
-});
+const { getLogger } = require('../logger.js')
+const logger = getLogger()
 let data = null;
 
 const getMockData = async () => {

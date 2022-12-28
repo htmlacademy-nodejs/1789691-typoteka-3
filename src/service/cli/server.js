@@ -8,10 +8,8 @@ const routes = require(`../api`);
 const app = express();
 app.use(express.json());
 
-const logger = require(`pino`)({
-  name: `pino-and-express`,
-  level: process.env.LOG_LEVEL || `info`
-});
+const { getLogger } = require('../logger.js')
+const logger = getLogger()
 
 app.use(
   (req, res, next) => {

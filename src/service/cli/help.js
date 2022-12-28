@@ -1,10 +1,8 @@
 'use strict';
 
 const chalk = require(`chalk`);
-const logger = require(`pino`)({
-  name: `pino-and-express`,
-  level: process.env.LOG_LEVEL || `info`
-});
+const { getLogger } = require('../logger.js')
+const logger = getLogger()
 
 const HELP = `
 Доступные команды:

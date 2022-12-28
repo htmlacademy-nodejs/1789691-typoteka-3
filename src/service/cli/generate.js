@@ -17,10 +17,8 @@ const {
 const fs = require(`fs`).promises;
 const chalk = require(`chalk`);
 const {nanoid} = require(`nanoid`);
-const logger = require(`pino`)({
-  name: `pino-and-express`,
-  level: process.env.LOG_LEVEL || `info`
-});
+const { getLogger } = require('../logger.js')
+const logger = getLogger()
 
 const CATEGORIES_FILE_NAME = `./data/categories.txt`;
 const COMMENTS_FILE_NAME = `./data/comments.txt`;
