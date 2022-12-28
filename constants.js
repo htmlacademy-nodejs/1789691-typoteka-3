@@ -26,6 +26,11 @@ const HttpCodes = {
   INTERNAL_SERVER_ERROR: 500,
 };
 
+const Environments = {
+  DEVELOPMENT: 'development',
+  PRODUCTION: 'production',
+}
+
 module.exports = {
   API_PREFIX,
   DEFAULT_COMMAND,
@@ -37,6 +42,7 @@ module.exports = {
   MAX_PUBLICATION_COUNT,
   PUBLIC_DIR,
   TEMPLATES_DIR,
+  Environments,
   ExitCode,
   HttpCodes,
 };
