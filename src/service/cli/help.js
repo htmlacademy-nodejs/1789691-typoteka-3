@@ -1,7 +1,7 @@
 'use strict';
 
 const chalk = require(`chalk`);
-const { getLogger } = require('../logger.js')
+const { getLogger } = require('../lib/logger.js')
 const logger = getLogger()
 
 const HELP = `

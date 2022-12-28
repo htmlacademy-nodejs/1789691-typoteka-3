@@ -4,7 +4,7 @@ const fs = require(`fs/promises`);
 const fsCommon = require(`fs`);
 const chalk = require(`chalk`);
 const {FILE_NAME} = require(`../../../constants`);
-const { getLogger } = require('../logger.js')
+const { getLogger } = require('./logger.js')
 const logger = getLogger()
 let data = null;
 

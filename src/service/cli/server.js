@@ -8,7 +8,7 @@ const routes = require(`../api`);
 const app = express();
 app.use(express.json());
 
-const { getLogger } = require('../logger.js')
+const { getLogger } = require('../lib/logger.js')
 const logger = getLogger()
 
 app.use(

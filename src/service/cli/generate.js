@@ -17,7 +17,7 @@ const {
 const fs = require(`fs`).promises;
 const chalk = require(`chalk`);
 const {nanoid} = require(`nanoid`);
-const { getLogger } = require('../logger.js')
+const { getLogger } = require('../lib/logger.js')
 const logger = getLogger()
 
 const CATEGORIES_FILE_NAME = `./data/categories.txt`;
