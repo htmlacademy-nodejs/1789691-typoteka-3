@@ -4,6 +4,7 @@ const API_PREFIX = `/api`;
 const DEFAULT_COMMAND = `--help`;
 const DEFAULT_COUNT = 1;
 const DEFAULT_PORT = 8080;
+const SERVER_PORT = 8081;
 const FILE_NAME = `mocks.json`;
 const FULL_MONTH_COUNT = 2;
 const MAX_ID_LENGTH = 6;
@@ -41,6 +42,7 @@ module.exports = {
   MAX_ID_LENGTH,
   MAX_PUBLICATION_COUNT,
   PUBLIC_DIR,
+  SERVER_PORT,
   TEMPLATES_DIR,
   Environments,
   ExitCode,
