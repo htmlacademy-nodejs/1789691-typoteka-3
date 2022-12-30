@@ -1,15 +1,17 @@
 'use strict';
 
+const { defaultApi } = require('../api');
 const {Router} = require(`express`);
 
-const router = new Router();
 
+const router = new Router();
 
 router.get(`/add`, (req, res) => {
   res.render(`new-post`);
 });
 
-router.get(`/edit/:id`, (req, res) => {
+router.get(`/edit/:id`, async (req, res) => {
+  const article = await defaultApi.getArticle(req.params.id);
   res.send(`/articles/edit/${req.params.id}`);
 });
 
