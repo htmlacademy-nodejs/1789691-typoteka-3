@@ -13,8 +13,7 @@ router.get(`/`, async (req, res) => {
 router.get(`/comments`, async (req, res) => {
   const articles = await defaultApi.getArticles()
   const comments = articles.map(article => article.comments)
-  console.log('comments:', comments)
-  res.render(`comments`);
+  res.render(`comments`, { comments });
 });
 
 module.exports = router;
