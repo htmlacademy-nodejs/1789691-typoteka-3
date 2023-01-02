@@ -12,7 +12,8 @@ router.get(`/add`, (req, res) => {
 
 router.get(`/edit/:id`, async (req, res) => {
   const article = await defaultApi.getArticle(req.params.id);
-  res.send(`/articles/edit/${req.params.id}`);
+  res.send(`${JSON.stringify(article)}`);
+  // res.send(`/articles/edit/${req.params.id}`);
 });
 
 router.get(`/category/:id`, (req, res) => {
