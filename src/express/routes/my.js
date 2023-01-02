@@ -7,7 +7,7 @@ const router = new Router();
 
 router.get(`/`, async (req, res) => {
   const articles = await defaultApi.getArticles()
-  res.render(`my`);
+  res.render(`my`, { articles });
 });
 
 router.get(`/comments`, async (req, res) => {
