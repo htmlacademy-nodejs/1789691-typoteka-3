@@ -2,7 +2,6 @@
 
 const { defaultApi } = require('../api');
 const {Router} = require(`express`);
-const { CommentService } = require('../../service/data-service');
 const router = new Router();
 
 router.get(`/`, async (req, res) => {
