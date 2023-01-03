@@ -29,6 +29,16 @@ class Api {
       console.error('getArticle.error:', error);
     }
   }
+
+  async createArticle(body) {
+    try {
+      return (await this._httpClient.post(`/articles`, body)).data
+    }
+    catch(error) {
+      console.error('createArticle.error:', error);
+      return error
+    }
+  }
 }
 
 const defaultApi = new Api(`http://localhost:${port}/api`)
