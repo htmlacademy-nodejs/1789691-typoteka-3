@@ -39,6 +39,15 @@ class Api {
       return error
     }
   }
+
+  async searchArctile(param) {
+    try {
+      return (await this._httpClient.get(`/search?query=${param}`)).data
+    }
+    catch(error) {
+      console.error('searchArctile.error:', error);
+    }
+  }
 }
 
 const defaultApi = new Api(`http://localhost:${port}/api`)
