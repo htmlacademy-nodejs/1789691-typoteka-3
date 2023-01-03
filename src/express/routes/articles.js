@@ -11,8 +11,14 @@ router.get(`/add`, (req, res) => {
   res.render(`new-post`);
 });
 
-router.post(`/add`, upload.single('upload'), (req, res) => {
-  res.send(`Body: ${JSON.stringify(req.body)}.<br> File: ${JSON.stringify(req.file)}`);
+router.post(`/add`, upload.single('upload'), async (req, res) => {
+  const {title, announcement: announce, "full-text": fullText, category = ["Разное"]} = req.body
+  const creationResult = await defaultApi.createArticle({title, announce, fullText, category});
+  if (creationResult instanceof Error) {
+    res.redirect(`back`);
+    return;
+  }
+  res.redirect(`/my`);
 });
 
 router.get(`/edit/:id`, async (req, res) => {
