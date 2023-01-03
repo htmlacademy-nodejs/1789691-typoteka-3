@@ -16,6 +16,7 @@ const {DEFAULT_PORT, PUBLIC_DIR, TEMPLATES_DIR} = require(`../../constants`);
 const app = express();
 app.set(`views`, path.resolve(__dirname, TEMPLATES_DIR));
 app.set(`view engine`, `pug`);
+app.use(express.urlencoded({extended: true}));
 
 app.use(`/`, mainRoutes);
 app.use(`/articles`, articlesRoutes);

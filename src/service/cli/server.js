@@ -2,7 +2,7 @@
 
 const express = require(`express`);
 const chalk = require(`chalk`);
-const {API_PREFIX, DEFAULT_PORT, HttpCodes} = require(`../../../constants`);
+const {API_PREFIX, SERVER_PORT, HttpCodes} = require(`../../../constants`);
 const routes = require(`../api`);
 
 const app = express();
@@ -36,7 +36,7 @@ app.use(
 module.exports = {
   name: `--server`,
   run(customPort) {
-    const port = Number(customPort) || DEFAULT_PORT;
+    const port = Number(customPort) || SERVER_PORT;
 
     app.listen(port, () => {
       logger.info(`The Express server is running on port ${port}.`)
